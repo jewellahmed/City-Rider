@@ -1,0 +1,17 @@
+[{
+    "type": "BIKE",
+    "image": "https://www.clipartkey.com/mpngs/m/43-431294_clip-art-cartoon-dirt-bike-cartoon-dirt-bike.png",
+    "id": 14
+  }, {
+    "type": "CAR",
+    "image": "https://image.freepik.com/free-vector/detailed-body-rims-flat-colored-suv-car-cartoon-illustration-with-black-stroke-shadow-effect_8980-292.jpg",
+    "id": 8
+  }, {
+    "type": "BUS",
+    "image": "https://image.shutterstock.com/image-vector/bus-isolated-260nw-541717828.jpg",
+    "id": 26
+  }, {
+    "type": "TRAIN",
+    "image": "https://image.shutterstock.com/image-vector/train-260nw-104147417.jpg",
+    "id": 35
+  }]
