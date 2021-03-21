@@ -13,7 +13,6 @@ import Confirmation from './components/Confirmation/Confirmation';
 import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import SignUp from './components/SignUp/SignUp';
 import Button from 'react-bootstrap/Button';
 
 
