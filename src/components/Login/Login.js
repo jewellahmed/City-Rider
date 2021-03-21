@@ -29,6 +29,7 @@ const Login = () => {
     })
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    console.log(loggedInUser.name)
     const history = useHistory();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
@@ -67,13 +68,15 @@ const Login = () => {
       .then((result) => {
         var credential = result.credential;
         const { displayName, email } = result.user;
-        console.log(result.user)
+       //console.log(result.user)
         const signedInUser = { name: displayName, email: email };
         setLoggedInUser(signedInUser);
-        history.replace(from)
+        history.push('/confirmation')
       })
 
       .catch((error) => {
+
+        // console.log(error,'ERROR')
 
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -85,32 +88,6 @@ const Login = () => {
 
   }
 
-    const handleSubmit = (e) =>{
-
-
-    if (!newUser && user.email && user.password) {
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            .then(res => {
-
-                const newUserInfo = { ...user };
-                newUserInfo.error = '';
-                newUserInfo.success = true;
-                setUser(newUserInfo);
-
-
-            })
-            .catch(error => {
-                const newUserInfo = { ...user };
-                newUserInfo.error = error.message;
-                newUserInfo.success = false;
-                setUser(newUserInfo);
-
-            });
-        }
-
-        e.preventDefault();
-
-    }
     
     const handleBlur = (e) => {
         // console.log(e.target.name,e.target.value)
@@ -133,58 +110,100 @@ const Login = () => {
 
         }
     }
-    // const handleSubmit = (e) => {
+    const updateUser = name => {
+        const user = firebase.auth().currentUser;
+        
+        user.updateProfile({
+            displayName: name
+            
 
-    //     if (newUser && user.email && user.password) {
-    //         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-    //             .then(res => {
+        }).then(function () {
 
-    //                 const newUserInfo = { ...user };
-    //                 newUserInfo.error = '';
-    //                 newUserInfo.success = true;
-    //                 setUser(newUserInfo);
-    //                 updateUser(user.name);
+        }).catch(function (error) {
+            
+        });
+    }
+     const handleSubmit = (e) => {
 
-    //             })
-    //             .catch(error => {
-    //                 const newUserInfo = { ...user };
-    //                 newUserInfo.error = error.message;
-    //                 newUserInfo.success = false;
-    //                 setUser(newUserInfo);
-    //             });
-    //     }
-    //     e.preventDefault();
+         if (newUser && user.email && user.password) {
+             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                 .then(res => {
 
-    // }
+                     const newUserInfo = { ...user };
+                    newUserInfo.error = '';
+                     newUserInfo.success = true;
+                     setUser(newUserInfo);
+                    updateUser(user.name);
+
+                 })
+                 .catch(error => {
+                     const newUserInfo = { ...user };
+                    newUserInfo.error = error.message;
+                     newUserInfo.success = false;
+                     setUser(newUserInfo);
+                });
+        }
+
+        if (!newUser && user.email && user.password) {
+            firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+                .then(res => {
+                    console.log(res)
+    
+                    const newUserInfo = { ...user };
+                    newUserInfo.error = '';
+                    newUserInfo.success = true;
+                    setUser(newUserInfo);
+    
+                })
+                .catch(error => {
+                    const newUserInfo = { ...user };
+                    newUserInfo.error = error.message;
+                    newUserInfo.success = false;
+                    setUser(newUserInfo);
+    
+                });
+            }
+
+         e.preventDefault();
+     }
 
     return (
         <div>
             <div className="formStyle">
-
+                
                 <form onSubmit={handleSubmit}>
 
-                    <input type="text" name="email" onBlur={handleBlur} placeholder="Your Email"></input>
-                    <br />
-
-                    <input type="password" name="password" onBlur={handleBlur} placeholder="Your Password"></input>
-                    <br />
-                    <input type="submit" value="Log In" ></input>
+                {newUser && <input type="text" name="name" onBlur={handleBlur} placeholder="Name"></input>}
+                <br/>
+                    <input type="text" name="email" onBlur={handleBlur} placeholder="Email"></input>
                     <br/>
+                    <input type="password" name="password" onBlur={handleBlur} placeholder="Password"></input>
+                    <br />
+                    {newUser && <input type="password" name="password" onBlur={handleBlur} placeholder="Confirm Password"></input>}
+                    <br/>
+                    <input type="submit" value={newUser?'Sign Up':'Sign In'} ></input>
+                    <br/>
+
                     
-                    <p>Don't have an account?<Link to="/signup">Create an account</Link></p>
+                    {newUser && <label style={{fontSize:'20px'}}  htmlFor='!newUser'>Already Have an account?</label>}
+                    {!newUser && <label style={{fontSize:'20px'}} htmlFor='newUser'>Don't have any account?</label>}
+                    
+                    
+                   {!newUser && <input type="checkbox" onChange={()=>setNewUser(!newUser)}>
+                       </input>}
+                       {newUser && <input type="checkbox" onChange={()=>setNewUser(!newUser)}>
+                       </input>}
+                
                     
                 </form>
                 <p style={{ color: 'red' }}>{user.error}</p>
-                {user.success && <p style={{ color: 'green' }}>User logged In Successfully</p>}
-            </div>
-            <br />
-            <div className="logoStyle">
+                {user.success && <p style={{ color: 'green' }}>User {newUser?'Signed Up':'Sign In'} Successfully</p>}
+                <br/>
                 <button onClick={handleGoogleSignIn}>Google Sign In</button>
                 <br/>
                 <button onClick={handleFbSignIn}>Facebook Sign In</button>
             </div>
-
-
+            <br />
 
         </div>
     );

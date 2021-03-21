@@ -13,18 +13,9 @@ const Home = () => {
     useEffect(() =>{
         setVehicles(vehicleData[0]);
         // console.log(vehicleData[0]);
-
-       
+ 
     },[]);
-    // console.log(vehicles)
-    // const homeStyle = {
-
-    //     display:"grid",
-    //     gridTemplateColumns:"repeat(4,1fr)",
-    //     gridGap:"irem"
-
-    // }
-   
+    
     
     return (
         <div className="homeStyle" >

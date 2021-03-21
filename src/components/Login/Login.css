@@ -1,8 +1,15 @@
 .formStyle{
 
-    text-align:center;
-}
-.logoStyle{
 
-    text-align:center;
+
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgb(183, 216, 224);
+    width:520px;
+    height:420px;
+    margin-left: 370px;
+    padding:20px;
+    padding-top:30px;
+    margin-top: 3px;
+    
 }

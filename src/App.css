@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+.uniqueStyle {
+
+  background-image: url("https://previews.123rf.com/images/nataliia2910/nataliia29101805/nataliia2910180500112/101854233-vector-illustration-of-road-cross-with-cars-in-the-big-modern-city-street-with-traffic-lights-in-fla.jpg"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: 630px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+.uniqueStyle h2{
+
+  font-size:55px;
+  color:rgb(59, 59, 112);
+}
+.uniqueStyle p{
+
+  font-size:40px;
+  color:rgb(77, 49, 104);
+}

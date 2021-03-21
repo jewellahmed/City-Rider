@@ -14,6 +14,7 @@ import Nav from 'react-bootstrap/Nav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import SignUp from './components/SignUp/SignUp';
+import Button from 'react-bootstrap/Button';
 
 
 export const UserContext = createContext();
@@ -24,76 +25,87 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-      
-      <p>Name:{loggedInUser.name}</p>
-      <h2>City Transports</h2>
-      <Router>
-         
+      <div className="uniqueStyle">
+
+        <p>Name:{loggedInUser.name}</p>
+        <h2>City Transports</h2>
+        <Router>
+
           {/* <p className="text-center mt-4 mb-4"></p> */}
           <Nav className="bg-light justify-content-end" activeKey="/home">
+            <Button variant="warning" size="sm">
+              <Nav.Item>
+                <Nav.Link>
+                  <Link to="/home">Home</Link>
+                </Nav.Link>
+              </Nav.Item>
+            </Button>
+            <Button variant="light" size="sm">
             <Nav.Item>
               <Nav.Link>
-              <Link to="/home">Home</Link>
-              </Nav.Link>
-            
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link>
-              <Link eventKey="link-1" to="/login">Destination</Link>
+                <Link eventKey="link-1" to="/login">Destination</Link>
 
               </Nav.Link>
-              
+
             </Nav.Item>
+            </Button>
+            <Button variant="warning" size="sm">
             <Nav.Item>
               <Nav.Link>
-              <Link eventKey="link-1">Blog</Link>
+                <Link eventKey="link-1">Blog</Link>
 
               </Nav.Link>
-              
+
             </Nav.Item>
+            </Button>
+            <Button variant="light" size="sm">
             <Nav.Item>
               <Nav.Link>
-              <Link eventKey="link-2">Contact</Link>
+                <Link eventKey="link-2">Contact</Link>
               </Nav.Link>
-              
+
             </Nav.Item>
+            </Button>
+            <Button variant="warning" size="sm">
             <Nav.Item>
               <Nav.Link>
-              <Link eventKey="disabled" to="/login"> Log In</Link>
+                <Link eventKey="disabled" to="/login"> Log In</Link>
               </Nav.Link>
             </Nav.Item>
+            </Button>
           </Nav>
-        <Switch>
+          <Switch>
 
-          <Route exact path="/">
-            <Home />
+            <Route exact path="/">
+              <Home />
 
-          </Route>
-          {/* <Route path="/confirmation">
+            </Route>
+            {/* <Route path="/confirmation">
             <Confirmation />
 
           </Route> */}
-          <PrivateRoute path="/confirmation">
-            <Confirmation/>
+            <PrivateRoute path="/confirmation/from/:ride">
+              <Confirmation />
 
-          </PrivateRoute>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp/>
-          </Route>
-          <Route path="/home">
-            <Home />
+            </PrivateRoute>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/home">
+              <Home />
 
-          </Route>
-
-
-        </Switch>
+            </Route>
 
 
-      </Router>
-     
+          </Switch>
+
+
+        </Router>
+      </div>
+
     </UserContext.Provider>
 
   );
